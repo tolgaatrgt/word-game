@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { SmartGame } from "./Game";
+import names from "./names.json";
 
-function App() {
+const App: React.FC = () => {
+  React.useEffect(() => {
+    setNameList(names);
+  }, []);
+
+  const [nameList, setNameList] = React.useState<string[]>([]);
+  const [isStart, setIsStart] = React.useState(false);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div style={{ display: `${isStart ? `none` : `inline-block`}` }}>
+        <h1>👾 Welcome to Word Game !</h1>
+        <button className="start-game-button" onClick={() => setIsStart(true)}>
+          START
+        </button>
+      </div>
+      <SmartGame nameList={nameList} isStart={isStart} />
     </div>
   );
-}
+};
 
 export default App;
