@@ -1,16 +1,15 @@
+import React from "react";
+
 export const Human = () => {
-  let word = "";
+  const [word, setWord] = React.useState("");
   const SpeechRecognition =
     window.SpeechRecognition || (window as any).webkitSpeechRecognition;
-
   const mic = new SpeechRecognition();
+  mic.lang = "tr-TR";
   mic.start();
-
-  mic.lang = "tr";
   mic.onresult = (e) => {
     mic.stop();
-    word = e.results[0][0].transcript;
+    setWord(e.results[0][0].transcript);
   };
-
   return word;
 };

@@ -1,11 +1,11 @@
-import React, { Children } from "react";
+import React from "react";
 
 type Props = {
-  message: string;
+  voice: string;
 };
 
-export const Computer: React.FC<Props> = ({ message, children }) => {
-  let msg = new SpeechSynthesisUtterance(message);
+export const Computer: React.FC<Props> = ({ voice, children }) => {
+  let msg = new SpeechSynthesisUtterance(voice);
   msg.lang = "tr-TR";
   window.speechSynthesis.speak(msg);
 
