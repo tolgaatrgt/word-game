@@ -20,17 +20,16 @@ export const Game: React.FC<Props> = ({ nameList }) => {
   const [answerList, setAnswerList] = React.useState<string[]>([]);
   const [score, setScore] = React.useState(0);
 
-  const getAnswer = (word: string) => {
+  const getAnswer = () => {
     let names = [...nameList];
+    let answers: string[] = [];
     names.map((item) => {
-      item[0] === humanWord[humanWord.length - 1] && names.push(item);
-      setAnswerList(names);
+      item[0] === humanWord[humanWord.length - 1] && answers.push(item);
     });
-
+    setAnswerList(answers);
     const answer = answerList[Math.floor(Math.random() * answerList.length)];
     return answer;
   };
-
   const switchTimer = () => setIsCount(!isCount);
 
   const useTurn = (turn: string) => {
@@ -39,11 +38,10 @@ export const Game: React.FC<Props> = ({ nameList }) => {
     useEffect(() => {
       console.log("BURAYA DA GELİYOR");
 
-      function switchTurn() {
-        // buradan sonrası çalıştırılmıyor
-        switchTimer();
+      const switchTurn = () => {
+        console.log("BURAYA GELMİYOR");
         if (turn === "human") {
-          console.log("sadasf");
+          switchTimer();
           let kelime = Human(); //  doğal olarak ses kaydı da başlamıyor(normalde sorunsuz çalışıyor)
           setHumanWord(kelime);
           setTurn("computer");
@@ -51,17 +49,15 @@ export const Game: React.FC<Props> = ({ nameList }) => {
 
         if (turn === "computer") {
           switchTimer();
-          // setIsCount(false)
-          // humanWord[0] === computerWord[computerWord.length - 1]
-          //   ?
-          // currentScore ++
-          // setScore(currentScore)
-          // let cevap = getAnswer(humanWord);
-          // setComputerWord(cevap)
-          // setTurn('human')
-          //   : setIsGameOver(true);
+          if (humanWord[0] === computerWord[computerWord.length - 1]) {
+            currentScore++;
+            setScore(currentScore);
+            let cevap = getAnswer();
+            setComputerWord(cevap);
+            setTurn("human");
+          } else setIsGameOver(true);
         }
-      }
+      };
     }, [turn]);
   };
 
@@ -72,7 +68,7 @@ export const Game: React.FC<Props> = ({ nameList }) => {
   ) : (
     <div style={{ display: `${isGameOver && `none`}` }}>
       <Countdown
-        duration={8}
+        duration={10}
         isCount={isCount}
         onFinish={() => setIsGameOver(true)}
       />

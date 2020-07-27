@@ -6,12 +6,11 @@ type Props = {
 };
 export const Countdown: React.FC<Props> = ({ duration, isCount, onFinish }) => {
   const [time, setTime] = React.useState(duration);
-  const counter = setTimeout(() => setTime(time - 1), 1000);
+  const counter = setTimeout(() => isCount && setTime(time - 1), 1000);
 
   if (time === 0) {
     onFinish();
     clearTimeout(counter);
-    return null;
   }
 
   return (
