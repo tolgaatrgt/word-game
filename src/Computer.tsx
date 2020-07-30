@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 type Props = {
   voice: string;
 };
 
 export const Computer: React.FC<Props> = ({ voice, children }) => {
-  let msg = new SpeechSynthesisUtterance(voice);
+  const msg = new SpeechSynthesisUtterance(voice);
   msg.lang = "tr-TR";
-  window.speechSynthesis.speak(msg);
+
+  useEffect(() => {
+    window.speechSynthesis.speak(msg);
+  }, [voice]);
 
   return <div>{children}</div>;
 };
+
+export default Computer;

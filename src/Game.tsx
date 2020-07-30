@@ -1,78 +1,87 @@
 import React, { useEffect } from "react";
-import { Human } from "./Human";
-import { Countdown } from "./Countdown";
-import { Computer } from "./Computer";
-import { GameOver } from "./GameOver";
+import Human from "./Human";
+import Computer from "./Computer";
+import Countdown from "./Countdown";
 import Screen from "./Screen";
+import GameOver from "./GameOver";
 
 type Props = {
   nameList: string[];
 };
 
+export type Turn = "Human" | "Computer";
+
 export const Game: React.FC<Props> = ({ nameList }) => {
   const initialAnswer = nameList[Math.floor(Math.random() * nameList.length)];
-  React.useEffect(() => {}, []);
   const [isCount, setIsCount] = React.useState(false);
   const [isGameOver, setIsGameOver] = React.useState(false);
   const [computerWord, setComputerWord] = React.useState(initialAnswer);
   const [humanWord, setHumanWord] = React.useState("");
-  const [turn, setTurn] = React.useState("human");
+  const [turn, setTurn] = React.useState<Turn>("Human");
   const [answerList, setAnswerList] = React.useState<string[]>([]);
   const [score, setScore] = React.useState(0);
 
-  const getAnswer = () => {
-    let names = [...nameList];
-    let answers: string[] = [];
+  useEffect(() => {
+    const names = [...nameList];
+    const answers: string[] = [];
     names.map((item) => {
       item[0] === humanWord[humanWord.length - 1] && answers.push(item);
     });
+
     setAnswerList(answers);
-    const answer = answerList[Math.floor(Math.random() * answerList.length)];
-    return answer;
-  };
-  const switchTimer = () => setIsCount(!isCount);
+  }, [humanWord]);
 
-  const useTurn = (turn: string) => {
-    let currentScore = score;
-    console.log("BURAYA GELİYOR");
-    useEffect(() => {
-      console.log("BURAYA DA GELİYOR");
-
-      const switchTurn = () => {
-        console.log("BURAYA GELMİYOR");
-        if (turn === "human") {
-          switchTimer();
-          let kelime = Human(); //  doğal olarak ses kaydı da başlamıyor(normalde sorunsuz çalışıyor)
-          setHumanWord(kelime);
-          setTurn("computer");
+  useEffect(() => {
+    if (turn === "Human") {
+      setIsCount(true);
+      Human((w) => {
+        if (w) {
+          setHumanWord(w);
+          setTurn("Computer");
+          setComputerWord("");
         }
+      });
+    }
 
-        if (turn === "computer") {
-          switchTimer();
-          if (humanWord[0] === computerWord[computerWord.length - 1]) {
-            currentScore++;
-            setScore(currentScore);
-            let cevap = getAnswer();
-            setComputerWord(cevap);
-            setTurn("human");
-          } else setIsGameOver(true);
-        }
-      };
-    }, [turn]);
+    if (turn === "Computer") {
+      setIsCount(false);
+      setTimeout(() => {
+        if (
+          humanWord.toLowerCase()[0] === computerWord[computerWord.length - 1] // Proper nouns cause inconsistency due to case sensitivity.
+        ) {
+          let answer =
+            answerList[Math.floor(Math.random() * answerList.length)];
+
+          setComputerWord(answer);
+          setHumanWord("");
+          let currentScore = score;
+          currentScore++;
+          setScore(currentScore);
+
+          setTurn("Human");
+        } else setIsGameOver(true);
+      }, Math.floor(Math.random() * 2000 + 1000));
+    }
+  }, [turn]);
+
+  const getAnswer = () => {
+    const random = 0.3;
+
+    if (Math.random() > random)
+      return answerList[Math.floor(Math.random() * answerList.length)];
+    else alert("you win");
   };
-
-  useTurn(turn);
 
   return isGameOver ? (
     <GameOver score={score} isGameOver={isGameOver} />
   ) : (
     <div style={{ display: `${isGameOver && `none`}` }}>
-      <Countdown
-        duration={10}
-        isCount={isCount}
-        onFinish={() => setIsGameOver(true)}
-      />
-      <Screen human={humanWord}>
+      <div className="counter-container">
+        {isCount && (
+          <Countdown duration={88986} onFinish={() => setIsGameOver(true)} />
+        )}
+      </div>
+      <Screen turn={turn} human={humanWord}>
         <Computer voice={computerWord}>{computerWord}</Computer>
       </Screen>
     </div>

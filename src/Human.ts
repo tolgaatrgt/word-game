@@ -1,7 +1,4 @@
-import React from "react";
-
-export const Human = () => {
-  const [word, setWord] = React.useState("");
+export const Human = (callback: (w: string) => void) => {
   const SpeechRecognition =
     window.SpeechRecognition || (window as any).webkitSpeechRecognition;
   const mic = new SpeechRecognition();
@@ -9,7 +6,8 @@ export const Human = () => {
   mic.start();
   mic.onresult = (e) => {
     mic.stop();
-    setWord(e.results[0][0].transcript);
+    callback(e.results[0][0].transcript);
   };
-  return word;
 };
+
+export default Human;

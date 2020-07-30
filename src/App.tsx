@@ -14,7 +14,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <div style={{ display: `${isStart ? `none` : `inline-block`}` }}>
-        <h1>👾 Welcome to Word Game !</h1>
+        <h1>👾 Welcome to the 'Word Game' !</h1>
         <button className="start-game-button" onClick={() => setIsStart(true)}>
           START
         </button>

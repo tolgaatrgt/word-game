@@ -14,7 +14,7 @@ export const GameOver: React.FC<Props> = ({ isGameOver, score }) => {
     }, 1500);
     return (
       isVisible && (
-        <div className="play-again">
+        <div className="game-over">
           <h1 style={{ color: "#5baf51" }}>
             {`Total number of known words: ${score}`}{" "}
           </h1>
