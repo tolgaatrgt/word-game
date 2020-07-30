@@ -45,6 +45,7 @@ export const Game: React.FC<Props> = ({ nameList }) => {
   }, [humanWord]);
 
   React.useEffect(() => {
+    const random = Math.floor(Math.random() * 2000 + 1000);
     if (turn === "Human") {
       if (!isContain(computerWord, usedAnswers)) {
         setIsCount(true);
@@ -88,8 +89,9 @@ export const Game: React.FC<Props> = ({ nameList }) => {
           storeUp(answer);
           setTurn("Human");
         } else setIsGameOver(true);
-      }, Math.floor(Math.random() * 2000 + 1000));
+      }, random);
     }
+    console.log(usedAnswers);
   }, [turn]);
 
   const storeUp = (answer: string) => {
