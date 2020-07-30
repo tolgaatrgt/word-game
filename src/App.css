@@ -4,7 +4,7 @@
   text-align: center;
   justify-content: center;
   align-items: center;
-  margin-top: 10%;
+  margin-top: 5%;
   min-height: 35rem;
 }
 .game-container {
@@ -30,9 +30,9 @@
 }
 
 .glow {
-  border: 0.125rem solid #dadada;
+  border: 0.125rem solid #67bbff;
   border-color: #9ecaed;
-  box-shadow: 0 0 2.875rem #9ecaed;
+  box-shadow: 0 0 2.875rem #67bbff;
 }
 
 .card-container {
@@ -41,7 +41,7 @@
 }
 
 .title {
-  color: #7b39ca;
+  color: #886ce4;
   font-size: 4rem;
 }
 
@@ -68,7 +68,7 @@
 }
 
 .start-game-button {
-  background-color: #7b39ca;
+  background-color: #886ce4;
   border: none;
   color: white;
   padding: 1rem 2rem;
@@ -83,11 +83,74 @@
 
 .game-over {
   position: absolute;
-  left: 40%;
-  top: 50%;
+  top: 40%;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
-.game-over-container {
-  position: relative;
-  bottom: 10rem;
+.score {
+  color: #00bcf2;
+}
+
+.result {
+  color: #ffc83d;
+  font-size: 5rem;
+  font-family: sans-serif;
+  letter-spacing: 0.25rem;
+  font-weight: bold;
+}
+.welcome {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.spinner {
+  width: 70px;
+  text-align: center;
+}
+
+.spinner > div {
+  width: 18px;
+  height: 18px;
+  background-color: #333;
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+  0%,
+  80%,
+  100% {
+    -webkit-transform: scale(0);
+  }
+  40% {
+    -webkit-transform: scale(1);
+  }
+}
+
+@keyframes sk-bouncedelay {
+  0%,
+  80%,
+  100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  40% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
 }

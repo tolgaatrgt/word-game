@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 type Props = {
   duration: number;
   onFinish: () => void;
@@ -6,7 +6,6 @@ type Props = {
 export const Countdown: React.FC<Props> = ({ duration, onFinish }) => {
   const [time, setTime] = React.useState(duration);
   const counter = setTimeout(() => setTime(time - 1), 1000);
-  console.log("ÇALIŞTIM");
   if (time === 0) {
     onFinish();
     clearTimeout(counter);

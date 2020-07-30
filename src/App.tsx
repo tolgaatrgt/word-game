@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
-import { SmartGame } from "./Game";
+import { SmartGame } from "./components/Game";
+import Welcome from "./components/Welcome";
 import names from "./names.json";
 
 const App: React.FC = () => {
@@ -13,12 +14,7 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <div style={{ display: `${isStart ? `none` : `inline-block`}` }}>
-        <h1>👾 Welcome to the 'Word Game' !</h1>
-        <button className="start-game-button" onClick={() => setIsStart(true)}>
-          START
-        </button>
-      </div>
+      <Welcome isStart={isStart} start={() => setIsStart(true)} />
       <SmartGame nameList={nameList} isStart={isStart} />
     </div>
   );
