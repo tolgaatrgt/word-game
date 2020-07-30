@@ -1,6 +1,6 @@
 
 # INSTRUCTIONS
-- Click the start game button and then allow access for microphone.
+- Click the start button and then allow access for microphone.
 
 - All you have to do is find a word that begins with the last letter of the word which computer said.
 
