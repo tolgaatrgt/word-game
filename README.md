@@ -9,3 +9,6 @@
 - You cannot use the word that has been said before.
 
 - Good luck 😎 
+
+> **Note:** Support for Web Speech API speech recognition is curently limited to Chrome for Desktop and Android.
+> For more information, see the [Using the Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API).
